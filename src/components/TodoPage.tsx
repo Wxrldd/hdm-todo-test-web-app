@@ -18,7 +18,16 @@ const TodoPage = () => {
       await api.delete(`/tasks/${id}`);
       handleFetchTasks();
     } catch (err) {
-      console.error("Error delete task:", err);
+      console.error('Error deleting task:', err);
+    }
+  };
+
+  const handleDeleteAll = async () => {
+    try {
+      await api.delete('/tasks'); // Appelle le bon endpoint pour tout supprimer
+      handleFetchTasks();
+    } catch (err) {
+      console.error('Error deleting all tasks:', err);
     }
   };
 
@@ -29,7 +38,7 @@ const TodoPage = () => {
         handleFetchTasks();
         setnewTask('');
       } catch (err) {
-        console.error("Error saving task:", err);
+        console.error('Error saving task:', err);
       }
     } else {
       alert('Le nom de la tâche ne peut pas être vide');
@@ -49,7 +58,7 @@ const TodoPage = () => {
         seteditTask(null);
         setupdateTask('');
       } catch (err) {
-        console.error("Error updating task:", err);
+        console.error('Error updating task:', err);
       }
     }
   };
@@ -64,6 +73,13 @@ const TodoPage = () => {
     <Container>
       <Box display="flex" justifyContent="center" mt={5}>
         <Typography variant="h2">HDM Todo List</Typography>
+      </Box>
+
+      {/* Bouton pour supprimer toutes les tâches */}
+      <Box display="flex" justifyContent="center" mt={3}>
+        <Button variant="contained" color="error" onClick={handleDeleteAll}>
+          Supprimer toutes les tâches
+        </Button>
       </Box>
 
       <Box justifyContent="center" mt={5} flexDirection="column">
@@ -103,14 +119,13 @@ const TodoPage = () => {
             sx={{ maxWidth: 350 }}
             placeholder="Nom de la tâche"
           />
-          <Button variant="outlined" onClick={handleSave}>Créer une tâche</Button>
-          <Button variant="outlined" color="error" onClick={handleDeleteAll} sx={{ marginLeft: 2 }}>
-            Supprimer toutes les tâches
+          <Button variant="outlined" onClick={handleSave}>
+            Créer une tâche
           </Button>
         </Box>
       </Box>
     </Container>
   );
-}
+};
 
 export default TodoPage;
