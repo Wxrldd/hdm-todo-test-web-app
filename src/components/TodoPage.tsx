@@ -24,7 +24,7 @@ const TodoPage = () => {
 
   const handleDeleteAll = async () => {
     try {
-      await api.delete('/tasks'); // Appelle le bon endpoint pour tout supprimer
+      await api.delete('/tasks');
       handleFetchTasks();
     } catch (err) {
       console.error('Error deleting all tasks:', err);
